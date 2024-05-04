@@ -1,6 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@import url('https://fonts.googleapis.com/css2?family=Reddit+Sans:ital,wght@0,342;1,342&display=swap');
 
 :root {
   --foreground-rgb: 0, 0, 0;
@@ -23,11 +24,17 @@ html, body > div {
 
 body {
   color: rgb(var(--foreground-rgb));
-  background-color: #153448;
+  background-color: #0C0C0C;
   margin: 0;
   padding: 0;
   box-sizing: border-box;
   height: 100vh;
+  font-family: "Reddit Sans", sans-serif;
+  letter-spacing: 0.25px;
+}
+
+h1 {
+  font-size: 24px;
 }
 
 @layer utilities {
