@@ -1,10 +1,14 @@
 "use client"
 import BlogTile from "@/components/BlogTile";
 import { useEffect, useState } from "react";
+import { Plus } from "@phosphor-icons/react/dist/ssr";
+import { createPortal } from "react-dom";
+import AddNewBlogModal from "@/components/Modal/AddNewBlogModal";
 
 export default function Home() {
 
   const [blogData, setBlogData] = useState(null)
+  const [isAddNewBlogOpen, setIsNewBlogOpen] = useState(false)
 
   useEffect(() => {
       fetch('/api/blogs')
@@ -29,6 +33,14 @@ export default function Home() {
           ))
         }
       </div>
+      <div onClick={() => setIsNewBlogOpen(true)} className="fixed bottom-14 right-16 p-2 rounded-full bg-purple-950 cursor-pointer">
+        <Plus size={32} />
+      </div>
+
+      {
+        isAddNewBlogOpen &&
+        createPortal(<AddNewBlogModal onClose={() => setIsNewBlogOpen(false)}/>, document.body)
+      }
       
     </div>
   );
