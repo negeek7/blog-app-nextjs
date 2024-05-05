@@ -1,3 +1,4 @@
+import { createNewBlogApiCaller } from '@/apiCaller/blogApiCaller'
 import React, { useState } from 'react'
 
 function AddNewBlogModal({onClose}) {
@@ -14,8 +15,18 @@ function AddNewBlogModal({onClose}) {
       setBlogSummary(e.target.value) : setBlogContent(e.target.value)
   }
 
+  const getBlogData = () => {
+    return {
+      title: blogTitle,
+      summary: blogSummary,
+      content: blogContent,
+      editable: true
+    }
+  }
+
   const handleNewBlogSubmit = () => {
-    console.log("SUBMITTEDDD")
+    createNewBlogApiCaller('/api/blogs', getBlogData())
+    .then(() => onClose())
   }
 
   return (
@@ -60,7 +71,7 @@ function AddNewBlogModal({onClose}) {
                         id="blog_content" 
                         placeholder="Blog Content..."
                         autoComplete="off"
-                        className='w-full p-2 rounded-md h-72 bg-transparent outline-none shadow-[0px_2px_25px_0px_#702459] resize-none'
+                        className='w-full p-4 rounded-md h-72 bg-transparent outline-none shadow-[rgba(13,_38,_76,_0.19)_0px_9px_20px] resize-none'
                         onChange={(e) => handleInput(e)}
                     />
                 </div>

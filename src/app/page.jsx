@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { Plus } from "@phosphor-icons/react/dist/ssr";
 import { createPortal } from "react-dom";
 import AddNewBlogModal from "@/components/Modal/AddNewBlogModal";
+import { getBlogApiCaller } from "@/apiCaller/blogApiCaller";
 
 export default function Home() {
 
@@ -11,9 +12,9 @@ export default function Home() {
   const [isAddNewBlogOpen, setIsNewBlogOpen] = useState(false)
 
   useEffect(() => {
-      fetch('/api/blogs')
-      .then(res => res.json())
+    getBlogApiCaller('/api/blogs')
       .then(data => setBlogData(data))
+
   }, []);
 
   console.log(blogData, "BLOG DATA")
