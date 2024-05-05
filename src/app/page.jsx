@@ -11,6 +11,7 @@ export default function Home() {
   const [blogData, setBlogData] = useState(null)
   const [isAddNewBlogOpen, setIsNewBlogOpen] = useState(false)
   const [isEditingBlog, setIsEditingBlog] = useState(false)
+  const [editableBlog, setEditableBlog] = useState(null)
 
   useEffect(() => {
     getBlogApiCaller('/api/blogs')
@@ -18,7 +19,13 @@ export default function Home() {
 
   }, []);
 
-  console.log(blogData, "BLOG DATA")
+  const handleEditBlog = (blog) => {
+    // open edit blog modal
+    setIsNewBlogOpen(true)
+    setEditableBlog(blog)
+    // modal should have value auto filled from the blog clicked
+
+  }
 
   return (
     <div>
@@ -30,7 +37,7 @@ export default function Home() {
         {
           blogData?.map(blog => (
             <>
-              <BlogTile blog={blog} />
+              <BlogTile blog={blog} handleEditBlog={handleEditBlog} />
             </>
           ))
         }
@@ -44,6 +51,8 @@ export default function Home() {
         createPortal(<AddNewBlogModal 
             onClose={() => setIsNewBlogOpen(false)}
             title={isEditingBlog ? "Edit Blog" : "Add New Blog"}
+            isEditing={isEditingBlog}
+            blog={editableBlog}
             />, document.body)
       }
       

@@ -1,11 +1,11 @@
 import { createNewBlogApiCaller } from '@/apiCaller/blogApiCaller'
 import React, { useState } from 'react'
 
-function AddNewBlogModal({onClose}) {
+function AddNewBlogModal({onClose, blog, isEditing}) {
 
-  const [blogTitle, setBlogTitle] = useState('')
-  const [blogContent, setBlogContent] = useState('')
-  const [blogSummary, setBlogSummary] = useState('')
+  const [blogTitle, setBlogTitle] = useState(blog ? blog.title : '')
+  const [blogContent, setBlogContent] = useState(blog ? blog.content : '')
+  const [blogSummary, setBlogSummary] = useState(blog ? blog.summary : '')
   const [error, setError] = useState({title: false, content: false})
 
 
@@ -24,9 +24,13 @@ function AddNewBlogModal({onClose}) {
     }
   }
 
-  const handleNewBlogSubmit = () => {
-    createNewBlogApiCaller('/api/blogs', getBlogData())
-    .then(() => onClose())
+  const handleBlogSubmit = () => {
+    if(!isEditing){
+      createNewBlogApiCaller('/api/blogs', getBlogData())
+      .then(() => onClose())
+    } else {
+      console.log("editing blog")
+    }
   }
 
   return (
@@ -86,9 +90,9 @@ function AddNewBlogModal({onClose}) {
                     </button>
                     <button 
                         className="text-xs text-center text-white bg-gray-800 hover:bg-gray-900 focus:outline-none px-3 py-2 border border-none outline-none rounded-lg"
-                        onClick={handleNewBlogSubmit}
+                        onClick={handleBlogSubmit}
                     >
-                        Post
+                        {isEditing ? "Update" : "Post"}
                     </button>
                 </div>
             </div>
