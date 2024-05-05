@@ -23,10 +23,15 @@ function BlogPage() {
     {
       loading ? <p>Loading....</p>
       :
-      <div className='text-white'>
-        <h2>{blog?.title}</h2>
-        <span>{blog?.summary}</span>
-        <p>{blog?.content}</p>
+      <div className='text-white p-8'>
+        <div className="p-8 h-80 flex flex-col items-center justify-center gap-10 shadow-[0px_0px_82px_5px_#44337a] rounded-tr-xl
+        rounded-bl-xl">
+          <h1>{blog?.title}</h1>
+          <span>{blog?.summary}</span>
+        </div>
+        <div className="mt-14">
+          <p>{blog?.content}</p>
+        </div>
       </div>
     }
     </>
