@@ -10,6 +10,7 @@ export default function Home() {
 
   const [blogData, setBlogData] = useState(null)
   const [isAddNewBlogOpen, setIsNewBlogOpen] = useState(false)
+  const [isEditingBlog, setIsEditingBlog] = useState(false)
 
   useEffect(() => {
     getBlogApiCaller('/api/blogs')
@@ -40,7 +41,10 @@ export default function Home() {
 
       {
         isAddNewBlogOpen &&
-        createPortal(<AddNewBlogModal onClose={() => setIsNewBlogOpen(false)}/>, document.body)
+        createPortal(<AddNewBlogModal 
+            onClose={() => setIsNewBlogOpen(false)}
+            title={isEditingBlog ? "Edit Blog" : "Add New Blog"}
+            />, document.body)
       }
       
     </div>
