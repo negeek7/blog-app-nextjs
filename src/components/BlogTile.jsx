@@ -16,7 +16,7 @@ function BlogTile({blog}) {
     <>
     <Link href={`/blog/${blog.id}`}>
         <div className="cursor-pointer shadow-[0px_0px_12px_0px_#44337a] rounded-xl hover:scale-105 transition-all ease-in-out duration-500">
-            <div className='text-center p-6 rounded-tl-xl'>
+            <div className='text-center p-6 rounded-tl-xl bg-purple-950'>
                 <h2 className='truncate'>{blog.title}</h2>
             </div>
             <div className="p-4 rounded-br-xl">
