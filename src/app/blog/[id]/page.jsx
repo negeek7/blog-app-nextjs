@@ -1,20 +1,35 @@
 'use client'
 import { usePathname } from 'next/navigation'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 
 function BlogPage() {
 
-  const path = usePathname()
+  const [blog, setBlog] = useState(null)
+  const [loading, setLoading] = useState(false)
 
-  console.log(path.split('/')[2], "ROUTERRR")
+  const path = usePathname()
   const blogid = path.split('/')[2]
 
   useEffect(() => {
-    fetch(`/api/blog/${blogid}`)
+    setLoading(true)
+    fetch(`/api/blogs/${blogid}`)
+    .then(res => res.json())
+    .then(data => setBlog(data.blog[0]))
+    setLoading(false)
   }, [])
 
   return (
-    <div>This is a single Blog Page</div>
+    <>
+    {
+      loading ? <p>Loading....</p>
+      :
+      <div className='text-white'>
+        <h2>{blog?.title}</h2>
+        <span>{blog?.summary}</span>
+        <p>{blog?.content}</p>
+      </div>
+    }
+    </>
   )
 }
 
