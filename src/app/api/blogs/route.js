@@ -19,8 +19,21 @@ export async function POST(req) {
     posts.push({...newPost, id: posts[posts.length-1].id + 1});
     fs.writeFileSync(process.cwd() + '/data.json', JSON.stringify(posts));
     return NextResponse.json({ message: 'Post created successfully' });
-  } catch (err) {
-    console.log(err, "ERRRERER")
+  } catch (error) {
+    console.log(error, "ERRRERER")
     return NextResponse.json({ error: 'Failed to create post' });
+  }
+}
+
+export async function PUT(req) {
+  const payload = req.json()
+  try {
+    const data = fs.readFileSync(process.cwd() + '/data.json', 'utf-8')
+    const posts = JSON.parse(data)
+    const updatedPosts = posts.map(p => p.id === payload.id ? payload : p)
+    fs.writeFileSync(process.cwd() + '/data.json', updatedPosts)
+    return NextResponse.json({message: "Post successfully updated"})
+  } catch (error) {
+    return NextResponse.json({message: "Failed to update post"})
   }
 }

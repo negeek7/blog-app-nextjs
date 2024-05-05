@@ -20,11 +20,9 @@ export default function Home() {
   }, []);
 
   const handleEditBlog = (blog) => {
-    // open edit blog modal
-    setIsNewBlogOpen(true)
     setEditableBlog(blog)
-    // modal should have value auto filled from the blog clicked
-
+    setIsNewBlogOpen(true)
+    setIsEditingBlog(true)
   }
 
   return (

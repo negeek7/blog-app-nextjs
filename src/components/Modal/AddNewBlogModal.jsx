@@ -8,6 +8,7 @@ function AddNewBlogModal({onClose, blog, isEditing}) {
   const [blogSummary, setBlogSummary] = useState(blog ? blog.summary : '')
   const [error, setError] = useState({title: false, content: false})
 
+  console.log(isEditing, "BLOGGGGG")
 
   const handleInput = (e) => {
     e.target.id === "blog_title" ? 
@@ -53,18 +54,20 @@ function AddNewBlogModal({onClose, blog, isEditing}) {
                         id="blog_title" 
                         autoComplete="off"
                         placeholder="Blog Title Here..." 
-                        className='w-2/4 p-2 rounded-md bg-transparent outline-none text-2xl'
+                        className='w-full p-2 rounded-md bg-transparent outline-none text-2xl'
+                        value={blogTitle}
                         onChange={(e) => handleInput(e)}
                         />
                     {/* <label htmlFor="title_playlist" className='none'>Title</label> */}
                 </div>
                 <div className="relative z-0 mt-6">
-                    <input 
-                        type="text" 
+                    <textarea 
+                        type="textarea" 
                         id="blog_summary" 
                         placeholder="Blog Summary..." 
                         autoComplete="off"
-                        className='w-2/4 px-2 rounded-md bg-transparent outline-none'
+                        className='w-full px-2 rounded-md bg-transparent outline-none text-wrap resize-none'
+                        value={blogSummary}
                         onChange={(e) => handleInput(e)}
                     />
                     {/* <label htmlFor="description_playlist">Description</label> */}
@@ -75,7 +78,8 @@ function AddNewBlogModal({onClose, blog, isEditing}) {
                         id="blog_content" 
                         placeholder="Blog Content..."
                         autoComplete="off"
-                        className='w-full p-4 rounded-md h-72 bg-transparent outline-none shadow-[rgba(13,_38,_76,_0.19)_0px_9px_20px] resize-none'
+                        className='w-full p-2 rounded-md h-72 bg-transparent outline-none shadow-[rgba(13,_38,_76,_0.19)_0px_9px_20px] resize-none'
+                        value={blogContent}
                         onChange={(e) => handleInput(e)}
                     />
                 </div>
