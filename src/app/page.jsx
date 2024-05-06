@@ -41,7 +41,7 @@ export default function Home() {
   }
 
   return (
-    <div>
+    <div className="h-fit pb-10">
       <div className="p-6 flex flex-col justify-center items-center">
         <h1>The Blog Room</h1>
         <p className="mt-4 max-w-screen-md text-center text-wrap">The Blog Room: Your Gateway to Insightful Articles and Engaging Stories. Explore a diverse collection of topics, from technology and lifestyle to culture and beyond. Dive into thought-provoking content curated to inform, inspire, and entertain.</p>

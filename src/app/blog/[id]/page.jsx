@@ -33,7 +33,7 @@ function BlogPage() {
           }
           <span>{blog?.summary}</span>
         </div>
-        <div className="mt-14 leading-8">
+        <div className="mt-14 leading-8 pb-10">
         {
           loading ? 
             <div className="mt-16 text-center">
