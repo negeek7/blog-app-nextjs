@@ -27,20 +27,33 @@ function AddNewBlogModal({ onClose, blog, isEditing, fetchBlogData }) {
   }
 
   const handleBlogSubmit = () => {
-    if(!isEditing){
-      createNewBlogApiCaller('/api/blogs', getBlogData())
-      .then(() => {
-        fetchBlogData()
-        onClose()
+    if(!blogTitle || !blogContent){
+      setError({
+        title: !blogTitle,
+        content: !blogContent
       })
     } else {
-      updateBlogPostApiCaller('/api/blogs', {...getBlogData(), id: blog.id})
-      .then(() => {
-        fetchBlogData()
-        onClose()
-      })
+      if(!isEditing){
+          createNewBlogApiCaller('/api/blogs', getBlogData())
+          .then(() => {
+            fetchBlogData()
+            onClose()
+          })
+      } else {
+        updateBlogPostApiCaller('/api/blogs', {...getBlogData(), id: blog.id})
+        .then(() => {
+          fetchBlogData()
+          onClose()
+        })
+      }
     }
   }
+
+  const showErrorMessage = () => {
+    return (
+        <p className="mt-2 text-xs text-red-600 dark:text-red-400"><span className="font-medium">Title or Content missing {':)'}</span></p>
+    )
+}
 
   return (
     <div className="fixed inset-0 flex items-center justify-center z-50 border-lime-400">
@@ -91,11 +104,11 @@ function AddNewBlogModal({ onClose, blog, isEditing, fetchBlogData }) {
                         onChange={(e) => handleInput(e)}
                     />
                 </div>
-                {/* <>
+                <>
                     {
-                        (error.title || error.description) && showErrorMessage()
+                        (error.title || error.content) && showErrorMessage()
                     }
-                </> */}
+                </>
                 <div className="flex justify-end mt-8 gap-6">
                     <button className="text-xs text-center text-white border border-none rounded-lg outline-none" onClick={onClose}>
                         Cancel
