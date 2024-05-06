@@ -7,17 +7,25 @@ import Spinner from '@/components/Spinner'
 function BlogPage() {
 
   const [blog, setBlog] = useState(null)
-  const [loading, setLoading] = useState(true)
+  const [loading, setLoading] = useState(false)
 
   const path = usePathname()
   const blogid = path.split('/')[2]
   const router = useRouter()
 
   useEffect(() => {
+    setLoading(true)
     fetch(`/api/blogs/${blogid}`)
     .then(res => res.json())
-    .then(data => setBlog(data.blog[0]))
+    .then(data => {
+      if(!data.blog.length){
+        router.push('/')
+      } else {
+        setBlog(data.blog[0])
+      }
+    })
     setLoading(false)
+
   }, [])
 
   return (
