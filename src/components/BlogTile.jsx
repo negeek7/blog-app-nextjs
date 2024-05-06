@@ -23,7 +23,7 @@ function BlogTile({ blog, blogActionHandler }) {
   return (
     <>
     <Link href={`/blog/${blog.id}`}>
-        <div className="relative cursor-pointer min-h-64 shadow-[0px_0px_12px_0px_#44337a] rounded-xl hover:scale-105 transition-all ease-in-out duration-500">
+        <div className="relative block group cursor-pointer min-h-64 shadow-[0px_0px_12px_0px_#44337a] rounded-xl hover:scale-105 transition-all ease-in-out duration-500">
             <div className='text-center p-6 rounded-t-xl bg-purple-950'>
 
                 <h2 className='truncate'>{blog.title}</h2>
@@ -47,6 +47,7 @@ function BlogTile({ blog, blogActionHandler }) {
             </div>
 
             }
+            <div className="opacity-0 group-hover:opacity-100 duration-300 absolute inset-x-0 bottom-0 flex justify-center items-end text-md text-violet-300 text-center my-2">Read More</div>
         </div>
     </Link>
     </>
