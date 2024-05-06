@@ -26,14 +26,20 @@ export async function POST(req) {
 }
 
 export async function PUT(req) {
-  const payload = req.json()
+  const payload = await req.json()
   try {
     const data = fs.readFileSync(process.cwd() + '/data.json', 'utf-8')
     const posts = JSON.parse(data)
-    const updatedPosts = posts.map(p => p.id === payload.id ? payload : p)
-    fs.writeFileSync(process.cwd() + '/data.json', updatedPosts)
+    const updatedPosts = posts.map(p => p.id == payload.id ? payload : p)
+    console.log(updatedPosts, "updatedPosts")
+    fs.writeFileSync(process.cwd() + '/data.json', JSON.stringify(updatedPosts))
     return NextResponse.json({message: "Post successfully updated"})
   } catch (error) {
+    console.log(error, "ERRRERER")
     return NextResponse.json({message: "Failed to update post"})
   }
+}
+
+export async function DELETE(req){
+  
 }

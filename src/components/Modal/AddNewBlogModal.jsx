@@ -1,4 +1,4 @@
-import { createNewBlogApiCaller } from '@/apiCaller/blogApiCaller'
+import { createNewBlogApiCaller, updateBlogPostApiCaller } from '@/apiCaller/blogApiCaller'
 import React, { useState } from 'react'
 
 function AddNewBlogModal({onClose, blog, isEditing}) {
@@ -30,7 +30,8 @@ function AddNewBlogModal({onClose, blog, isEditing}) {
       createNewBlogApiCaller('/api/blogs', getBlogData())
       .then(() => onClose())
     } else {
-      console.log("editing blog")
+      updateBlogPostApiCaller('/api/blogs', {...getBlogData(), id: blog.id})
+      .then(() => onClose())
     }
   }
 
