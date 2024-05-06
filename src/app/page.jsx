@@ -6,6 +6,7 @@ import { createPortal } from "react-dom";
 import AddNewBlogModal from "@/components/Modal/AddNewBlogModal";
 import { getBlogApiCaller } from "@/apiCaller/blogApiCaller";
 import DeleteBlogModal from "@/components/Modal/DeleteBlogModal";
+import Spinner from "@/components/Spinner";
 
 export default function Home() {
 
@@ -14,14 +15,19 @@ export default function Home() {
   const [isEditingBlog, setIsEditingBlog] = useState(false)
   const [actionableBlog, setActionableBlog] = useState(null)
   const [deleteModalState, setDeleteModalState] = useState(null)
+  const [isLoading, setIsLoading] = useState(false)
 
   useEffect(() => {
     fetchBlogData()
   }, []);
 
   const fetchBlogData = () => {
+    setIsLoading(true)
     getBlogApiCaller('/api/blogs')
-    .then(data => setBlogData(data))
+    .then(data => {
+      setBlogData(data)
+      setIsLoading(false)
+    })
   }
 
   const blogActionHandler = (blog, action) => {
@@ -40,15 +46,22 @@ export default function Home() {
         <h1>The Blog Room</h1>
         <p className="mt-4 max-w-screen-md text-center text-wrap">The Blog Room: Your Gateway to Insightful Articles and Engaging Stories. Explore a diverse collection of topics, from technology and lifestyle to culture and beyond. Dive into thought-provoking content curated to inform, inspire, and entertain.</p>
       </div>
-      <div className='mt-8 mx-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8'>
+      {
+        isLoading ?
+        <div className="mt-40 text-center">
+          <Spinner />
+        </div>
+        :
+        <div className='mt-8 mx-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8'>
         {
-          blogData?.map(blog => (
+          blogData?.map((blog, id) => (
             <>
-              <BlogTile blog={blog} blogActionHandler={blogActionHandler} />
+              <BlogTile key={id} blog={blog} blogActionHandler={blogActionHandler} />
             </>
           ))
         }
       </div>
+      }
       <div onClick={() => setIsNewBlogOpen(true)} className="fixed bottom-14 right-16 p-2 rounded-full bg-purple-950 cursor-pointer">
         <Plus size={32} />
       </div>

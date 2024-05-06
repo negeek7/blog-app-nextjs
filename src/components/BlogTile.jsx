@@ -2,7 +2,7 @@ import React from 'react'
 import Link from 'next/link'
 import { PencilSimple, Trash } from '@phosphor-icons/react/dist/ssr'
 
-function BlogTile({blog, blogActionHandler}) {
+function BlogTile({ blog, blogActionHandler }) {
 
     let textLength = 60
 
