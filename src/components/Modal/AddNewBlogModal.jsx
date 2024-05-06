@@ -49,7 +49,7 @@ function AddNewBlogModal({ onClose, blog, isEditing, fetchBlogData }) {
         
         <div className="relative bg-slate-900 p-4 rounded-lg z-10 border-lime-400 shadow-[rgba(7,_65,_210,_0.1)_0px_9px_30px] lg:w-2/4 md:w-80">
             <div className="flex justify-between">
-                <h3 className='flex-1 text-center'>Add New Blog</h3>
+                <h3 className='flex-1 text-center'>{isEditing ? "Edit Your Post" : "Add New Blog"}</h3>
                 <span className="cursor-pointer" onClick={onClose}>
                     <X size={22} />
                 </span>

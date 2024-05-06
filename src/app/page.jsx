@@ -57,7 +57,11 @@ export default function Home() {
         isAddNewBlogOpen &&
         createPortal(
           <AddNewBlogModal
-            onClose={() => setIsNewBlogOpen(false)}
+            onClose={() => {
+              setIsNewBlogOpen(false)
+              setIsEditingBlog(false)
+              setActionableBlog(null)
+            }}
             title={isEditingBlog ? "Edit Blog" : "Add New Blog"}
             isEditing={isEditingBlog}
             blog={actionableBlog}
