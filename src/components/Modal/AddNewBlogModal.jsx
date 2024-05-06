@@ -2,7 +2,7 @@ import { createNewBlogApiCaller, updateBlogPostApiCaller } from '@/apiCaller/blo
 import { X } from '@phosphor-icons/react/dist/ssr'
 import React, { useState } from 'react'
 
-function AddNewBlogModal({onClose, blog, isEditing}) {
+function AddNewBlogModal({ onClose, blog, isEditing, fetchBlogData }) {
 
   const [blogTitle, setBlogTitle] = useState(blog ? blog.title : '')
   const [blogContent, setBlogContent] = useState(blog ? blog.content : '')
@@ -29,10 +29,16 @@ function AddNewBlogModal({onClose, blog, isEditing}) {
   const handleBlogSubmit = () => {
     if(!isEditing){
       createNewBlogApiCaller('/api/blogs', getBlogData())
-      .then(() => onClose())
+      .then(() => {
+        fetchBlogData()
+        onClose()
+      })
     } else {
       updateBlogPostApiCaller('/api/blogs', {...getBlogData(), id: blog.id})
-      .then(() => onClose())
+      .then(() => {
+        fetchBlogData()
+        onClose()
+      })
     }
   }
 

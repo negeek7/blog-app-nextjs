@@ -16,10 +16,13 @@ export default function Home() {
   const [deleteModalState, setDeleteModalState] = useState(null)
 
   useEffect(() => {
-    getBlogApiCaller('/api/blogs')
-      .then(data => setBlogData(data))
-
+    fetchBlogData()
   }, []);
+
+  const fetchBlogData = () => {
+    getBlogApiCaller('/api/blogs')
+    .then(data => setBlogData(data))
+  }
 
   const blogActionHandler = (blog, action) => {
     setActionableBlog(blog)
@@ -58,6 +61,7 @@ export default function Home() {
             title={isEditingBlog ? "Edit Blog" : "Add New Blog"}
             isEditing={isEditingBlog}
             blog={actionableBlog}
+            fetchBlogData={fetchBlogData}
           />, document.body)
       }
 
@@ -67,6 +71,7 @@ export default function Home() {
           <DeleteBlogModal 
             onClose={() => setDeleteModalState(false)}
             blog={actionableBlog}
+            fetchBlogData={fetchBlogData}
           />,
           document.body
         )
