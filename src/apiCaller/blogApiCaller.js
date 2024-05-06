@@ -43,3 +43,20 @@ export async function updateBlogPostApiCaller(url = '', payload = {}) {
         console.log(error, "Update Blog API Error")
     }
 }
+
+export async function deleteBlogPostApiCaller(url = '', payload = {}){
+    try {
+        const response = await fetch(url, {
+            method: "DELETE",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(payload)
+        })
+        const result = await response.json()
+        return result
+    } catch (error) {
+        console.log(error, "Delete Blog API Error")
+    }
+
+}

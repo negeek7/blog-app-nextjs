@@ -1,11 +1,12 @@
-import { createNewBlogApiCaller, updateBlogPostApiCaller } from '@/apiCaller/blogApiCaller'
+import { createNewBlogApiCaller, deleteBlogPostApiCaller, updateBlogPostApiCaller } from '@/apiCaller/blogApiCaller'
 import { X } from '@phosphor-icons/react/dist/ssr'
 import React, { useState } from 'react'
 
 function DeleteBlogModal({ onClose, blog }) {
 
-    const handleBlogDelete = (blog) => {
-        console.log(blog, "Delete Blog")
+    const handleBlogDelete = () => {
+        deleteBlogPostApiCaller('/api/blogs', blog)
+        .then(() => onClose())
     }
 
     return (

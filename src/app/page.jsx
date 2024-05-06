@@ -66,6 +66,7 @@ export default function Home() {
         createPortal(
           <DeleteBlogModal 
             onClose={() => setDeleteModalState(false)}
+            blog={actionableBlog}
           />,
           document.body
         )

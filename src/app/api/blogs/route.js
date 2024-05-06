@@ -40,6 +40,21 @@ export async function PUT(req) {
   }
 }
 
-export async function DELETE(req){
-  
+export async function DELETE(req) {
+  const payload = await req.json()
+  try {
+    const data = fs.readFileSync(process.cwd() + '/data.json', 'utf-8')
+    const posts = JSON.parse(data)
+    const postToBeDeleted = posts.findIndex(post => post.id === payload.id)
+    if (postToBeDeleted > -1) {
+      posts.splice(postToBeDeleted, 1)
+      fs.writeFileSync(process.cwd() + '/data.json', JSON.stringify(posts))
+      return NextResponse.json({ message: "Post successfully deleted" })
+    } else {
+      return NextResponse.json({ message: "Post not found" })
+    }
+  } catch (error) {
+    console.log(error, "DELETE ERROR")
+    return NextResponse.json({ message: "Failed to delete post" })
+  }
 }
