@@ -2,7 +2,7 @@ import React from 'react'
 import Link from 'next/link'
 import { PencilSimple, Trash } from '@phosphor-icons/react/dist/ssr'
 
-function BlogTile({blog, handleEditBlog}) {
+function BlogTile({blog, blogActionHandler}) {
 
     let textLength = 60
 
@@ -13,10 +13,10 @@ function BlogTile({blog, handleEditBlog}) {
     }
  }
 
- const handleEditBlogClick = (e, blog) => {
-    e.preventDefault()
-    handleEditBlog(blog)
- }
+    const handleBlogActions = (e, blog, action) => {
+        e.preventDefault()
+        blogActionHandler(blog, action)
+    }
 
   return (
     <>
@@ -33,13 +33,15 @@ function BlogTile({blog, handleEditBlog}) {
             {
                 blog.editable &&
             <div className="absolute -right-2 bottom-6 flex flex-col gap-4 z-10">
-                <button onClick={(e) => handleEditBlogClick(e, blog)} className="z-10">
+                <button onClick={(e) => handleBlogActions(e, blog, 'edit')} className="z-10">
                     <PencilSimple 
                         size={20} 
                         className="bg-slate-400 rounded-lg p-1 hover:scale-125 transition-all ease-in duration-200"
                     />
                 </button>
-                <Trash size={20} className="bg-red-700 rounded-lg p-1 hover:scale-125 transition-all ease-in duration-200"/>
+                <button onClick={(e) => handleBlogActions(e, blog, 'delete')} className="z-10">
+                    <Trash size={20} className="bg-red-700 rounded-lg p-1 hover:scale-125 transition-all ease-in duration-200"/>
+                </button>
             </div>
 
             }

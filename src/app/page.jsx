@@ -5,13 +5,15 @@ import { Plus } from "@phosphor-icons/react/dist/ssr";
 import { createPortal } from "react-dom";
 import AddNewBlogModal from "@/components/Modal/AddNewBlogModal";
 import { getBlogApiCaller } from "@/apiCaller/blogApiCaller";
+import DeleteBlogModal from "@/components/Modal/DeleteBlogModal";
 
 export default function Home() {
 
   const [blogData, setBlogData] = useState(null)
   const [isAddNewBlogOpen, setIsNewBlogOpen] = useState(false)
   const [isEditingBlog, setIsEditingBlog] = useState(false)
-  const [editableBlog, setEditableBlog] = useState(null)
+  const [actionableBlog, setActionableBlog] = useState(null)
+  const [deleteModalState, setDeleteModalState] = useState(null)
 
   useEffect(() => {
     getBlogApiCaller('/api/blogs')
@@ -19,10 +21,14 @@ export default function Home() {
 
   }, []);
 
-  const handleEditBlog = (blog) => {
-    setEditableBlog(blog)
-    setIsNewBlogOpen(true)
-    setIsEditingBlog(true)
+  const blogActionHandler = (blog, action) => {
+    setActionableBlog(blog)
+    if(action === 'edit'){
+      setIsNewBlogOpen(true)
+      setIsEditingBlog(true)
+    } else {
+      setDeleteModalState(true)
+    }
   }
 
   return (
@@ -35,7 +41,7 @@ export default function Home() {
         {
           blogData?.map(blog => (
             <>
-              <BlogTile blog={blog} handleEditBlog={handleEditBlog} />
+              <BlogTile blog={blog} blogActionHandler={blogActionHandler} />
             </>
           ))
         }
@@ -46,12 +52,23 @@ export default function Home() {
 
       {
         isAddNewBlogOpen &&
-        createPortal(<AddNewBlogModal 
+        createPortal(
+          <AddNewBlogModal
             onClose={() => setIsNewBlogOpen(false)}
             title={isEditingBlog ? "Edit Blog" : "Add New Blog"}
             isEditing={isEditingBlog}
-            blog={editableBlog}
-            />, document.body)
+            blog={actionableBlog}
+          />, document.body)
+      }
+
+      {
+        deleteModalState &&
+        createPortal(
+          <DeleteBlogModal 
+            onClose={() => setDeleteModalState(false)}
+          />,
+          document.body
+        )
       }
       
     </div>

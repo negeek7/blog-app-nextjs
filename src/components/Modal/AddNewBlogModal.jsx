@@ -1,4 +1,5 @@
 import { createNewBlogApiCaller, updateBlogPostApiCaller } from '@/apiCaller/blogApiCaller'
+import { X } from '@phosphor-icons/react/dist/ssr'
 import React, { useState } from 'react'
 
 function AddNewBlogModal({onClose, blog, isEditing}) {
@@ -42,9 +43,9 @@ function AddNewBlogModal({onClose, blog, isEditing}) {
         
         <div className="relative bg-slate-900 p-4 rounded-lg z-10 border-lime-400 shadow-[rgba(7,_65,_210,_0.1)_0px_9px_30px] lg:w-2/4 md:w-80">
             <div className="flex justify-between">
-                <div>Add new blog</div>
+                <h3 className='flex-1 text-center'>Add New Blog</h3>
                 <span className="cursor-pointer" onClick={onClose}>
-                    <i className="ph ph-x text-blue-300"></i>
+                    <X size={22} />
                 </span>
                 
             </div>
