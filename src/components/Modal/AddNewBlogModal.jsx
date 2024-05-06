@@ -56,11 +56,11 @@ function AddNewBlogModal({ onClose, blog, isEditing, fetchBlogData }) {
 }
 
   return (
-    <div className="fixed inset-0 flex items-center justify-center z-50 border-lime-400">
+    <div className="fixed inset-0 flex items-center justify-center z-50">
         <div className="fixed inset-0 bg-black opacity-50"></div>
 
         
-        <div className="relative bg-slate-900 p-4 rounded-lg z-10 border-lime-400 shadow-[rgba(7,_65,_210,_0.1)_0px_9px_30px] lg:w-2/4 md:w-80">
+        <div className="relative bg-slate-900 p-4 rounded-lg z-10 shadow-[rgba(7,_65,_210,_0.1)_0px_9px_30px] w-full h-full lg:w-2/4 lg:h-fit md:w-80 md:h-fit">
             <div className="flex justify-between">
                 <h3 className='flex-1 text-center'>{isEditing ? "Edit Your Post" : "Add New Blog"}</h3>
                 <span className="cursor-pointer" onClick={onClose}>
@@ -99,7 +99,7 @@ function AddNewBlogModal({ onClose, blog, isEditing, fetchBlogData }) {
                         id="blog_content" 
                         placeholder="Blog Content..."
                         autoComplete="off"
-                        className='w-full p-2 rounded-md h-72 bg-transparent outline-none shadow-[rgba(13,_38,_76,_0.19)_0px_9px_20px] resize-none'
+                        className='w-full p-2 rounded-md h-96 md:h-72 bg-transparent outline-none shadow-[rgba(13,_38,_76,_0.19)_0px_9px_20px] resize-none'
                         value={blogContent}
                         onChange={(e) => handleInput(e)}
                     />
@@ -109,12 +109,15 @@ function AddNewBlogModal({ onClose, blog, isEditing, fetchBlogData }) {
                         (error.title || error.content) && showErrorMessage()
                     }
                 </>
-                <div className="flex justify-end mt-8 gap-6">
-                    <button className="text-xs text-center text-white border border-none rounded-lg outline-none" onClick={onClose}>
+                <div className="flex justify-end mt-56 gap-6 md:mt-14">
+                    <button 
+                      className="text-md text-center text-white border border-none rounded-lg outline-none" 
+                      onClick={onClose}
+                    >
                         Cancel
                     </button>
                     <button 
-                        className="text-xs text-center text-white bg-gray-800 hover:bg-gray-900 focus:outline-none px-3 py-2 border border-none outline-none rounded-lg"
+                        className="text-md text-center text-white bg-gray-800 hover:bg-gray-900 focus:outline-none py-2 px-6 border border-none outline-none rounded-lg"
                         onClick={handleBlogSubmit}
                     >
                         {isEditing ? "Update" : "Post"}

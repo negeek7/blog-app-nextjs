@@ -62,7 +62,7 @@ export default function Home() {
         }
       </div>
       }
-      <div onClick={() => setIsNewBlogOpen(true)} className="fixed bottom-14 right-16 p-2 rounded-full bg-purple-950 cursor-pointer">
+      <div onClick={() => setIsNewBlogOpen(true)} className="fixed bottom-12 right-12 p-2 rounded-full bg-purple-950 cursor-pointer">
         <Plus size={32} />
       </div>
 
